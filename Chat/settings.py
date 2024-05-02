@@ -129,5 +129,5 @@ import firebase_admin
 from firebase_admin import credentials
 
 # Initialize Firebase Admin SDK
-cred = credentials.Certificate(".\chat-3bdc8-firebase-adminsdk-pv61d-b4abcf2c71.json")
+cred = credentials.Certificate("C:\Users\JOEL\Desktop\Chat\Chat\chat-3bdc8-firebase-adminsdk-pv61d-b4abcf2c71.json")
 firebase_admin.initialize_app(cred)
