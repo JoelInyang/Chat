@@ -17,7 +17,7 @@ SECRET_KEY = 'django-insecure-lyeqy@wr^1s^t%)49k7+eq-@!(7$zi0*%)4&@c@-9a3fwi@i2t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://chat-p9nh.onrender.com/']
+ALLOWED_HOSTS = ['chat-p9nh.onrender.com/']
 
 
 # Application definition
