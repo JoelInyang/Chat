@@ -1,9 +1,3 @@
-# users/views.py
-from django.contrib.auth import authenticate
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.core.mail import send_mail
-#from django.utils.encoding import smart_str, force_bytes, force_text
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -17,7 +11,7 @@ class Signup(APIView):
         if serializer.is_valid():
             user = serializer.save()
             
-            # Create a JWT refresh token
+            # Here, creates a JWT refresh token
             refresh = RefreshToken.for_user(user)
             token = str(refresh.access_token)
 
@@ -25,7 +19,7 @@ class Signup(APIView):
                 {
                     "message": "User created successfully.",
                     "statuscode": 201,
-                    "token": token  # Include the token in the response
+                    "token": token 
                 },
                 status=status.HTTP_201_CREATED
             )

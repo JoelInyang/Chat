@@ -1,4 +1,3 @@
-# consumers.py
 import json
 from channels.generic.websocket import WebsocketConsumer
 
@@ -13,9 +12,9 @@ class ChatConsumer(WebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
 
-        # Broadcast the message to all connected clients
+        # Am broadcasting the message to all connected clients
         self.channel_layer.group_send(
-            'chat_room',  # Group name (you can customize this)
+            'chat_room',  # The group name 
             {
                 'type': 'chat_message',
                 'message': message
@@ -23,14 +22,14 @@ class ChatConsumer(WebsocketConsumer):
         )
 
     def chat_message(self, event):
-        # Send the received message to the client
+        # Am sending the received message to the client
         message = event['message']
         self.send(text_data=json.dumps({
             'message': message
         }))
 
 
-# views.py or consumers.py
+
 from firebase_admin import messaging
 
 def send_push_notification(token, message_body):
@@ -44,7 +43,7 @@ def send_push_notification(token, message_body):
     print('Successfully sent message:', response)
 
 
-# views.py or consumers.py
+
 from firebase_admin import messaging
 
 def subscribe_to_topic(token, topic_name):

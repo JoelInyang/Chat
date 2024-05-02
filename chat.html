@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Real-time Chat</title>
     <style>
-        /* Styles for chat interface */
+        /* Here is the styles for chat interface */
         #chat-container {
             width: 400px;
             margin: auto;
@@ -48,7 +48,7 @@
 
     <script>
         // WebSocket connection
-        const ws = new WebSocket('wss://chat-p9nh.onrender.com/ws/chat/');
+        const ws = new WebSocket('wss://chat-p9nh.onrender.com/ws/chat/'); // Here is WebSockect URL
 
         // Function to add message to chat
         function addMessage(message) {
@@ -58,7 +58,7 @@
             messagesContainer.appendChild(messageElement);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
-
+/*
         // Event listener for send button click
         document.getElementById('send-button').addEventListener('click', function() {
             const messageInput = document.getElementById('message-input');
@@ -66,6 +66,23 @@
             if (message !== '') {
                 ws.send(JSON.stringify({ message: message }));
                 messageInput.value = '';
+            }
+        });
+*/
+
+        // Event listener for send button click
+        document.getElementById('send-button').addEventListener('click', function() {
+            const messageInput = document.getElementById('message-input');
+            const message = messageInput.value.trim();
+            if (message !== '') {
+                // Here am checking if the WebSocket connection is open before sending the message
+                if (ws.readyState === WebSocket.OPEN) {
+                    ws.send(JSON.stringify({ message: message }));
+                    messageInput.value = '';
+                } else {
+                    console.error('WebSocket connection is not open yet.');
+                    
+                }
             }
         });
 
