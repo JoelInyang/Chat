@@ -2,16 +2,16 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core.mail import send_mail
-from django.utils.encoding import smart_str, force_bytes, force_text
+#from django.utils.encoding import smart_str, force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import CustomUser
+from .models import User
 from .serializers import SignUpSerializer
 
-class UserSignupView(APIView):
+class Signup(APIView):
     def post(self, request, format=None):
         serializer = SignUpSerializer(data=request.data)
         if serializer.is_valid():
@@ -23,7 +23,7 @@ class UserSignupView(APIView):
 
             return Response(
                 {
-                    "message": "User created successfully. Verification code sent to your email.",
+                    "message": "User created successfully.",
                     "statuscode": 201,
                     "token": token  # Include the token in the response
                 },
@@ -43,8 +43,14 @@ class Login(APIView):
         email = request.data.get('email')
         password = request.data.get('password')
 
-        user = authenticate(request, email=email, password=password)
-        if user:
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return Response(
+                {"message": "Unsuccessful, kindly re-enter your credentials", "status" : 404}, status=status.HTTP_404_NOT_FOUND
+            )
+
+        if user.check_password(password):
             refresh = RefreshToken.for_user(user)
             token = str(refresh.access_token)
 

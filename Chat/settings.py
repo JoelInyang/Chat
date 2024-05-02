@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     
+    'channels',
+    
     'users',
 ]
 
@@ -118,3 +120,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# settings.py
+import firebase_admin
+from firebase_admin import credentials
+
+# Initialize Firebase Admin SDK
+cred = credentials.Certificate("Chat\chat-3bdc8-firebase-adminsdk-pv61d-b4abcf2c71.json")
+firebase_admin.initialize_app(cred)
