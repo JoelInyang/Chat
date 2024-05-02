@@ -1,4 +1,6 @@
-import env
+import environ
+env = environ.Env()
+environ.Env.read_env()
 
 {
   "type": env('TYPE'),
